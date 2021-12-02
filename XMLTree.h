@@ -10,7 +10,7 @@ using namespace std;
 
 // Node for XML tag containing a vector its children nodes
 // Children represents the inner tags encapsulated by tag that the node represents
-// Name is the tag name and if the node doesn't have children then represents the text gata of the tag
+// Name is the tag name and if the node doesn't have children then represents the text data of the tag
 class Node
 {
 private:
@@ -55,7 +55,6 @@ private:
     int currentClosingTag;
 
 public:
-
     XMLTree(const string& xmlContent);
 
     // Returns string with XML inorder
