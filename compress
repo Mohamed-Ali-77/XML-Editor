@@ -1,0 +1,57 @@
+#include <iostream>
+#include <string>
+#include <vector>
+using namespace std;
+
+// first we remove the new line characters to reduce size 
+
+string minifying(string s) {
+	vector<char> copy;
+	for (int i = 0; i < s.size(); i++) {
+		if (s.at(i) != '\n') {
+			copy.push_back(s.at(i));
+		}
+	}
+	string result(copy.begin(),copy.end());
+	return result;
+}
+
+// we are using the byte pair encoding to replace a recurring pair of chars (s) with an unused char (code_char)
+
+vector<char> byte_pair_encoding(vector<char>str, char code_char, string s) {
+	vector<char>result;
+	for (int i = 0; i < str.size(); i++) {
+		if (str[i] == s.at(1) && str[i + 1] == s.at(2)) {
+			result.push_back(code_char);
+			i++;
+		}
+		else {
+			result.push_back(str[i]);
+		}
+	}
+	return result;
+
+}
+
+// we decide on the code_char ( a char that is unused in the string (str) ) from an array of characters (code)
+char code_char(string str, vector<char>code) {
+	int cd_index = 0;
+	for (int i = 0; i < code.size(); i++) {
+		bool good_cd = true;
+		for (int j = 0; i < str.size(); j++) {
+			if (code[i] == str[j]) {
+				good_cd = false;
+				break;
+			}
+		}
+		if (good_cd) {
+			cd_index = i;
+			break;
+		}
+	}
+	return code[cd_index];
+}
+int main()
+{
+
+}
