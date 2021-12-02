@@ -51,6 +51,21 @@ char code_char(string str, vector<char>code) {
 	}
 	return code[cd_index];
 }
+
+// to convert between an rray of char and string
+vector<char> str_to_char(string s) {
+	vector<char> copy;
+	for (int i = 0; i < s.size(); i++) {
+			copy.push_back(s.at(i));
+	}
+	return copy;
+}
+string char_to_str(vector<char> vec) {
+
+	string result(vec.begin(), vec.end());
+	return result;
+}
+
 int main()
 {
 
