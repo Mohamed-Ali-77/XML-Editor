@@ -52,7 +52,7 @@ char code_char(string str, vector<char>code) {
 	return code[cd_index];
 }
 
-// to convert between an rray of char and string
+// to convert between an array of char and string
 vector<char> str_to_char(string s) {
 	vector<char> copy;
 	for (int i = 0; i < s.size(); i++) {
