@@ -1,0 +1,100 @@
+#include <iostream>
+#include <string>
+#include <vector>
+using namespace std;
+
+// first we remove the new line characters to reduce size 
+
+string minifying(string s) {
+	vector<char> copy;
+	for (int i = 0; i < s.size(); i++) {
+		if (s.at(i) != '\n') {
+			copy.push_back(s.at(i));
+		}
+	}
+	string result(copy.begin(),copy.end());
+	return result;
+}
+
+// we are using the byte pair encoding to replace a recurring pair of chars (s) with an unused char (code_char)
+
+string byte_pair_encoding(string str, char code_char, string s) {
+	vector<char>result;
+	for (int i = 0; i < str.size()-1; i++) {
+		if (str.at(i) == s.at(0) && str.at(i+1) == s.at(1)) {
+			result.push_back(code_char);
+			i++;
+		}
+		else {
+			result.push_back(str.at(i));
+		}
+	}
+	result.push_back(str.at(str.size()-1));
+	return char_to_str(result);
+
+}
+
+// we decide on the code_char ( a char that is unused in the string (str) ) from an array of characters (code)
+char code_char(string str, vector<char>code) {
+	int cd_index = 0;
+	for (int i = 0; i < code.size(); i++) {
+		bool good_cd = true;
+		for (int j = 0; j < str.size(); j++) {
+			if (code[i] == str[j]) {
+				good_cd = false;
+				break;
+			}
+		}
+		if (good_cd) {
+			cd_index = i;
+			break;
+		}
+	}
+	return code[cd_index];
+}
+
+// we find the most recurring pair in the string 
+string most_recurring_pair(string s) {
+	int count1 = 0;
+	int pair_index = -1;
+	for (int i = 0; i < s.size()-1; i++) {
+		int count2 = 0;
+		for (int j = 0; j < s.size()-1; j++) {
+			if (s.at(i) == s.at(j) && s.at(i+1) == s.at(j+1)) {
+				count2++;
+				j++;
+
+
+			}
+		}
+		if (count2 > count1 && count2 > 1) {
+			pair_index = i;
+			count1 = count2;
+		}
+	}
+	if (pair_index == -1) {
+		return "no recurrence";
+	}
+	else {
+		return s.substr(pair_index, 2);
+	}
+}
+
+// to convert between an array of char and string
+vector<char> str_to_char(string s) {
+	vector<char> copy;
+	for (int i = 0; i < s.size(); i++) {
+			copy.push_back(s.at(i));
+	}
+	return copy;
+}
+string char_to_str(vector<char> vec) {
+
+	string result(vec.begin(), vec.end());
+	return result;
+}
+
+int main()
+{
+
+}
