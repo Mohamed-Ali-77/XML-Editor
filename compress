@@ -20,7 +20,7 @@ string minifying(string s) {
 
 vector<char> byte_pair_encoding(vector<char>str, char code_char, string s) {
 	vector<char>result;
-	for (int i = 0; i < str.size(); i++) {
+	for (int i = 0; i < str.size()-1; i++) {
 		if (str[i] == s.at(0) && str[i + 1] == s.at(1)) {
 			result.push_back(code_char);
 			i++;
@@ -29,6 +29,7 @@ vector<char> byte_pair_encoding(vector<char>str, char code_char, string s) {
 			result.push_back(str[i]);
 		}
 	}
+	result.push_back(str[str.size()-1]);
 	return result;
 
 }
@@ -50,6 +51,33 @@ char code_char(string str, vector<char>code) {
 		}
 	}
 	return code[cd_index];
+}
+
+// we find the most recurring pair in the string 
+string most_recurring_pair(string s) {
+	int count1 = 0;
+	int pair_index = -1;
+	for (int i = 0; i < s.size()-1; i++) {
+		int count2 = 0;
+		for (int j = 0; j < s.size()-1; j++) {
+			if (s.at(i) == s.at(j) && s.at(i+1) == s.at(j+1)) {
+				count2++;
+				j++;
+
+
+			}
+		}
+		if (count2 > count1 && count2 > 1) {
+			pair_index = i;
+			count1 = count2;
+		}
+	}
+	if (pair_index == -1) {
+		return "no recurrence";
+	}
+	else {
+		return s.substr(pair_index, 2);
+	}
 }
 
 // to convert between an array of char and string
