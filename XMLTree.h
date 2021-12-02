@@ -85,6 +85,7 @@ private:
 
     void inorderXML(Node* tag, stringstream& str);
 
+    void deleteTree(Node* node);
 };
 
 XMLTree::XMLTree(const string& xmlContent)
@@ -95,7 +96,6 @@ XMLTree::XMLTree(const string& xmlContent)
     stack<Node* > depth;
     depth.push(root);
     int prevClosingTag = 0;
-
     while (getNextOpening() != string::npos) {
         getClosing();
 
@@ -115,14 +115,13 @@ XMLTree::XMLTree(const string& xmlContent)
         string currentTagName = body.substr(currentOpeningTag + 1, getClosing() - currentOpeningTag - 1);
         int firstSpace = currentTagName.find_first_of(" ");
         if (firstSpace != string::npos) currentTagName.erase(firstSpace);
-        
+
         Node* currentTag = new Node(currentTagName);
         depth.top() -> addChild(currentTag);
         depth.push(currentTag);
 
         prevClosingTag = currentClosingTag;
     }
-    
 }
 
 
@@ -150,9 +149,19 @@ void XMLTree::inorderXML(Node* tag, stringstream& str) {
     str << "</" << tag -> getName() << ">";
 }
 
+void XMLTree::deleteTree(Node* node) {
+
+    for (int i = 0; i < node -> numberOfChilds(); ++i) {
+        deleteTree(node -> getChild(i));
+    }
+    delete node;
+}
+
 XMLTree::~XMLTree()
 {
+    deleteTree(root);
 }
+
 
 
 #endif
