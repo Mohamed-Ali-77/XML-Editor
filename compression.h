@@ -16,3 +16,5 @@ char code_char(string str, vector<char>code);
 string most_recurring_pair(string s);
 vector<char> code_wds();
 string compression(string s);
+string byte_pair_decoding(string str, char code_char, string s);
+string decompression(string s);
