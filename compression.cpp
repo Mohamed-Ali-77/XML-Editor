@@ -117,8 +117,8 @@ string compression(string s) {
 	char cd = code_char(s, codes);
 	while (pair != "no recurrence" && cd != '?') {
 		s = byte_pair_encoding(s, cd, pair);
-		codeing_chars.push_back(cd);
-		coded_pairs.push_back(pair);
+		XML_CodingCharacters.push_back(cd);
+		XML_EncodedPairs.push_back(pair);
 		pair = most_recurring_pair(s);
 		cd = code_char(s, codes);
 	}
