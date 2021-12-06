@@ -124,3 +124,24 @@ string compression(string s) {
 	}
 	return s;
 }
+string byte_pair_decoding(string str, char code_char, string s) {
+	vector<char>result;
+	stack<char> temp; 
+	for (int i = 0 ; i < str.size(); i++) {
+		if (str.at(i) == code_char) {
+			result.push_back(s.at(0));
+			result.push_back(s.at(1));
+		}
+		else {
+			result.push_back(str.at(i));
+		}
+	}
+	return char_to_str(result);
+
+}
+string decompression(string s) {
+	for (int i = coded_pairs.size()-1 ; i >= 0; i--) {
+		s = byte_pair_decoding(s, codeing_chars[i], coded_pairs[i]);
+	}
+	return s;
+}
