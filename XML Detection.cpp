@@ -1,3 +1,28 @@
+#include <iostream>
+#include <string>
+#include <stack>
+#include <vector>
+#include <assert.h>
+#include <cassert>
+#include <fstream>
+
+using namespace std;
+string ReadTXT(string F_NAME) {
+    fstream file(F_NAME.c_str());   // sample.xml
+    string s = "";
+    string sum = "";
+    if (file.is_open()) {
+        string line;
+        while (getline(file, line)) {
+            // using printf() in all tests for consistency
+            s = line.c_str();
+            sum += s;
+
+            return s;
+        }
+        file.close();
+    }
+}
 bool Detection(string str) {
     stack<char> s1;
     stack<char> s2;
