@@ -12,7 +12,6 @@ string removeSpaces(string str)
 stack<string> stac;
 
 void outline_C(string& s) {
-    // stack<string> stac;
     int len;
     string s2, ss, pp = "";
     s2 = removeSpaces(s);
@@ -27,8 +26,6 @@ void outline_C(string& s) {
                 pp += s2[open1 + 1];
                 open1++;
             }
-
-            //cout << pp << endl;
             stac.push(pp);
             pp = "";
         }
@@ -122,55 +119,5 @@ string ReadTXT(string F_NAME) {
 
 int main() {
     cout << ReadTXT("sample2.xml");
-    
-    /*
-    stack<string> stac;
-    int len;
-    fstream file("sample2.xml");   // sample.xml
-    string s,s2, ss,pp = "";
-    if (file.is_open()) {
-        int close1, open1, close2, open2;
-        string line;
-        while (getline(file, line)) {
-            s = line.c_str();
-            s2 = removeSpaces(s);
-            close1 = s2.find(">");
-            open1 = s2.find("<");
-            open2 = s2.find("<", 2);
-            close2 = s2.find(">", 2);
-            if (open1 != -1 && open2 == -1 && s.back()=='>') {
-                if (s2[1] != '/') {
-                    while (open1 < close1-1) {
-                        pp += s2[open1 + 1];
-                        open1++;
-                    }
-
-                    //cout << pp << endl;
-                    stac.push(pp);
-                    pp = "";
-                }
-                else {
-                    while (open1 < close1-2 ) {
-                        pp += s2[open1 + 2];
-                        open1++;
-                    }
-                  //  cout << pp << endl;
-                    if (pp == stac.top()) {
-                        stac.pop();
-                    }
-                    else {
-                        s = "</" + stac.top() + ">" + s;
-                        stac.pop();
-                        stac.pop();
-                    }
-                 
-                    pp = "";   
-                }
-            }
-            ss += s;
-            cout << s;
-        }
-        file.close();
-    }
-    */
+   
 }
