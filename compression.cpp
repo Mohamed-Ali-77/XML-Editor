@@ -23,13 +23,23 @@ string minifying(string s) {
 	vector<char> copy;
 	for (int i = 0; i < s.size(); i++) {
 		if (s.at(i) != '\n') {
-			copy.push_back(s.at(i));
+			if (s.at(i) == ' ') {
+				if (s.at(i + 1) == '<' && copy.back() == ' ') {
+					copy.pop_back();
+					i--;
+				}
+				else if (copy.back() != '>') {
+					copy.push_back(s.at(i));
+				}
+			}
+			else {
+				copy.push_back(s.at(i));
+			}
 		}
 	}
 	string result(copy.begin(), copy.end());
 	return result;
 }
-
 
 string byte_pair_encoding(string str, char code_char, string s) {
 	vector<char>result;
