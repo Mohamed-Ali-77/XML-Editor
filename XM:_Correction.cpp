@@ -10,7 +10,7 @@ string removeSpaces(string str)
     return str;
 }
 stack<string> stac;
-
+// to correct errors like   <name>5</id>
 void outline_C(string& s) {
     int len;
     string s2, ss, pp = "";
@@ -52,13 +52,11 @@ void outline_C(string& s) {
     }
     ss += s;
 }
-
+//correct closed tag in another line
 void inline_C(string& s) {
     s = removeSpaces(s);
-
     int close1 = s.find(">");
     int open1 = s.find("<");
-
     if ((s.length() > close1 + 1) && open1 != -1) {
         int open1 = s.find("<");
         int open2 = s.find("<", 2);
@@ -66,7 +64,6 @@ void inline_C(string& s) {
             string s2 = s + '<' + '/' + "         ";
             int close1 = s.find(">");
             open2 = s2.find("<", 2);
-            //   s2[open2 + 1] = '/';
 
             while (open1 < close1) {
                 s2[open2 + 2] = s2[open1 + 1];
@@ -75,15 +72,11 @@ void inline_C(string& s) {
             }
             s = s2;
         }
-
-
         else {
             string s2 = s + "         ";
 
             int close1 = s.find(">");
             open2 = s2.find("<", 2);
-            //   s2[open2 + 1] = '/';
-
             while (open1 < close1) {
                 s2[open2 + 2] = s2[open1 + 1];
                 open1++;
@@ -93,8 +86,8 @@ void inline_C(string& s) {
         }
     }
 }
-
-string ReadTXT(string F_NAME) {
+//The main correction function which calls other correction functions
+string Correction(string F_NAME) {
     fstream file(F_NAME.c_str());   // sample.xml
     string s, ss = "";
     if (file.is_open()) {
@@ -105,7 +98,6 @@ string ReadTXT(string F_NAME) {
             int open1 = s.find("<");
             if ((s.length() > close1 + 1) && open1 != -1){
                 inline_C(s);
-
             }
             else {
                 outline_C(s);
@@ -117,7 +109,8 @@ string ReadTXT(string F_NAME) {
     }
 }
 
+//main
 int main() {
-    cout << ReadTXT("sample2.xml");
+    cout << Correction("sample.xml");
    
 }
