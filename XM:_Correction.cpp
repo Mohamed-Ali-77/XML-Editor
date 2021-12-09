@@ -1,80 +1,176 @@
 #include<iostream>
 #include<stack>
 #include <fstream>
-using namespace std;
+#include<stack>
 #include<string>
+using namespace std;
 string removeSpaces(string str)
 {
     str.erase(remove(str.begin(), str.end(), ' '), str.end());
     return str;
 }
+stack<string> stac;
 
+void outline_C(string& s) {
+    // stack<string> stac;
+    int len;
+    string s2, ss, pp = "";
+    s2 = removeSpaces(s);
+    int close1, open1, close2, open2;
+    close1 = s2.find(">");
+    open1 = s2.find("<");
+    open2 = s2.find("<", 2);
+    close2 = s2.find(">", 2);
+    if (open1 != -1 && open2 == -1 && s.back() == '>') {
+        if (s2[1] != '/') {
+            while (open1 < close1 - 1) {
+                pp += s2[open1 + 1];
+                open1++;
+            }
 
-void inline_C(string &s) {
-     s = removeSpaces(s);
+            //cout << pp << endl;
+            stac.push(pp);
+            pp = "";
+        }
+        else {
+            while (open1 < close1 - 2) {
+                pp += s2[open1 + 2];
+                open1++;
+            }
+            //  cout << pp << endl;
+            if (pp == stac.top()) {
+                stac.pop();
+            }
+
+            else {
+                s = "</" + stac.top() + ">" + s;
+                stac.pop();
+                if (!stac.empty()) {
+                    stac.pop();
+                }
+            }
+
+            pp = "";
+        }
+    }
+    ss += s;
+}
+
+void inline_C(string& s) {
+    s = removeSpaces(s);
 
     int close1 = s.find(">");
     int open1 = s.find("<");
 
     if ((s.length() > close1 + 1) && open1 != -1) {
         int open1 = s.find("<");
-      int open2 = s.find("<",2);
-      if (open2 == -1) {
-          string s2 = s +'<'+'/'+ "         ";
-          int close1 = s.find(">");
-          open2 = s2.find("<", 2);
-          //   s2[open2 + 1] = '/';
+        int open2 = s.find("<", 2);
+        if (open2 == -1) {
+            string s2 = s + '<' + '/' + "         ";
+            int close1 = s.find(">");
+            open2 = s2.find("<", 2);
+            //   s2[open2 + 1] = '/';
 
-          while (open1 < close1) {
-              s2[open2 + 2] = s2[open1 + 1];
-              open1++;
-              open2++;
-          }
-          s = s2;
-      }
-        
-        
-      else {
-          string s2 = s + "         ";
+            while (open1 < close1) {
+                s2[open2 + 2] = s2[open1 + 1];
+                open1++;
+                open2++;
+            }
+            s = s2;
+        }
 
-          int close1 = s.find(">");
-          open2 = s2.find("<", 2);
-          //   s2[open2 + 1] = '/';
-      
-          while (open1 < close1) {
-              s2[open2 + 2] = s2[open1 + 1];
-              open1++;
-              open2++;
-          }
-          s = s2;
+
+        else {
+            string s2 = s + "         ";
+
+            int close1 = s.find(">");
+            open2 = s2.find("<", 2);
+            //   s2[open2 + 1] = '/';
+
+            while (open1 < close1) {
+                s2[open2 + 2] = s2[open1 + 1];
+                open1++;
+                open2++;
+            }
+            s = s2;
         }
     }
 }
 
 string ReadTXT(string F_NAME) {
     fstream file(F_NAME.c_str());   // sample.xml
-    string s,ss = "";
+    string s, ss = "";
     if (file.is_open()) {
         string line;
         while (getline(file, line)) {
-            // using printf() in all tests for consistency
             s = line.c_str();
-            inline_C(s);
-            //cout << s << endl;
-            ss += s;
+            int close1 = s.find(">");
+            int open1 = s.find("<");
+            if ((s.length() > close1 + 1) && open1 != -1){
+                inline_C(s);
 
+            }
+            else {
+                outline_C(s);
+            }
+            ss += s;
         }
         file.close();
         return ss;
     }
 }
 
-
 int main() {
-    cout << ReadTXT("sample.xml")<<endl;
-    string x = "<And>";
-    inline_C(x);
-    //cout << x;
+    cout << ReadTXT("sample2.xml");
+    
+    /*
+    stack<string> stac;
+    int len;
+    fstream file("sample2.xml");   // sample.xml
+    string s,s2, ss,pp = "";
+    if (file.is_open()) {
+        int close1, open1, close2, open2;
+        string line;
+        while (getline(file, line)) {
+            s = line.c_str();
+            s2 = removeSpaces(s);
+            close1 = s2.find(">");
+            open1 = s2.find("<");
+            open2 = s2.find("<", 2);
+            close2 = s2.find(">", 2);
+            if (open1 != -1 && open2 == -1 && s.back()=='>') {
+                if (s2[1] != '/') {
+                    while (open1 < close1-1) {
+                        pp += s2[open1 + 1];
+                        open1++;
+                    }
 
+                    //cout << pp << endl;
+                    stac.push(pp);
+                    pp = "";
+                }
+                else {
+                    while (open1 < close1-2 ) {
+                        pp += s2[open1 + 2];
+                        open1++;
+                    }
+                  //  cout << pp << endl;
+                    if (pp == stac.top()) {
+                        stac.pop();
+                    }
+                    else {
+                        s = "</" + stac.top() + ">" + s;
+                        stac.pop();
+                        stac.pop();
+                    }
+                 
+                    pp = "";   
+                }
+            }
+            ss += s;
+            cout << s;
+        }
+        file.close();
+    }
+    */
 }
-
