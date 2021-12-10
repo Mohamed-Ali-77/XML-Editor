@@ -72,7 +72,9 @@ void MainWindow::on_actionexit_triggered()
 
 void MainWindow::on_actionSave_triggered()
 {
-    QString filename = QFileDialog::getSaveFileName(this,"Save As");
+         QString fileName = QFileDialog::getSaveFileName(this, tr("Save As"),
+                                    "untitled.xml",
+                                    tr("XML files (*.xml);;Text files (*.txt);;JSON files(*.json"));
         QFile file(filename);
         if(!file.open(QFile::WriteOnly | QFile::Text))
         {
