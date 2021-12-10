@@ -3,10 +3,20 @@
 #include "main.h"
 using namespace std;
 
-unsigned int NumOfLines = 0;
-unsigned int sizeOfXML =0;
+string StringOriginalData;
+string Comprssed_data="";
+string DeCompresseddata="";
+unsigned int sizeOfXML = 0;
+unsigned int sizeOriginal= 0;
+unsigned int sizeCompressed= 0;
 
 vector<string> XML_ReadFile;
+vector<string> XML_Decompressed;
+vector<string> XML_Corrected;
+vector<string> XML_JSONdata;
+vector<string> XML_EncodedPairs;
+vector<char> XML_CodingCharacters;
+vector<string> Spaces;
 
 
 int main(int argc, char *argv[])
