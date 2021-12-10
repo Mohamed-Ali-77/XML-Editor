@@ -1,116 +1,82 @@
-#include<iostream>
-#include<stack>
+#include <iostream>
+#include <string>
+#include <stack>
+#include <vector>
+#include <cassert>
 #include <fstream>
-#include<stack>
-#include<string>
+#include <algorithm>
+
 using namespace std;
 string removeSpaces(string str)
 {
     str.erase(remove(str.begin(), str.end(), ' '), str.end());
     return str;
 }
-stack<string> stac;
-// to correct errors like   <name>5</id>
-void outline_C(string& s) {
-    int len;
-    string s2, ss, pp = "";
-    s2 = removeSpaces(s);
-    int close1, open1, close2, open2;
-    close1 = s2.find(">");
-    open1 = s2.find("<");
-    open2 = s2.find("<", 2);
-    close2 = s2.find(">", 2);
-    if (open1 != -1 && open2 == -1 && s.back() == '>') {
-        if (s2[1] != '/') {
-            while (open1 < close1 - 1) {
-                pp += s2[open1 + 1];
-                open1++;
-            }
-            stac.push(pp);
-            pp = "";
-        }
-        else {
-            while (open1 < close1 - 2) {
-                pp += s2[open1 + 2];
-                open1++;
-            }
-            //  cout << pp << endl;
-            if (pp == stac.top()) {
-                stac.pop();
-            }
 
-            else {
-                s = "</" + stac.top() + ">" + s;
-                stac.pop();
-                if (!stac.empty()) {
-                    stac.pop();
-                }
-            }
-
-            pp = "";
-        }
-    }
-    ss += s;
-}
-//correct closed tag in another line
-void inline_C(string& s) {
-    s = removeSpaces(s);
-    int close1 = s.find(">");
-    int open1 = s.find("<");
-    if ((s.length() > close1 + 1) && open1 != -1) {
-        int open1 = s.find("<");
-        int open2 = s.find("<", 2);
-        if (open2 == -1) {
-            string s2 = s + '<' + '/' + "         ";
-            int close1 = s.find(">");
-            open2 = s2.find("<", 2);
-
-            while (open1 < close1) {
-                s2[open2 + 2] = s2[open1 + 1];
-                open1++;
-                open2++;
-            }
-            s = s2;
-        }
-        else {
-            string s2 = s + "         ";
-
-            int close1 = s.find(">");
-            open2 = s2.find("<", 2);
-            while (open1 < close1) {
-                s2[open2 + 2] = s2[open1 + 1];
-                open1++;
-                open2++;
-            }
-            s = s2;
-        }
-    }
-}
-//The main correction function which calls other correction functions
-string Correction(string F_NAME) {
+string ReadTXT(string F_NAME) {
     fstream file(F_NAME.c_str());   // sample.xml
-    string s, ss = "";
+    string s = "", sum ="" ;
     if (file.is_open()) {
         string line;
         while (getline(file, line)) {
-            s = line.c_str();
-            int close1 = s.find(">");
-            int open1 = s.find("<");
-            if ((s.length() > close1 + 1) && open1 != -1){
-                inline_C(s);
-            }
-            else {
-                outline_C(s);
-            }
-            ss += s;
+            // using printf() in all tests for consistency
+            s = removeSpaces(line.c_str());
+            sum += s;
         }
         file.close();
-        return ss;
+    }
+    return sum;
+}
+
+
+bool Detection(string str) {
+    stack<char> s1;
+    stack<char> s2;
+    vector<char> v1;
+    vector<char> v2;
+    s1.push('a');
+    for (int i = 0; i < str.length(); i++) {
+        if (i > 0) {
+            if (str[i] == '<' && s1.top() == '>') {
+                s1.pop();
+            }
+        }
+        if (str[i] == '<') {
+            s1.push(str[i]);
+            s2.push(str[i]);
+        }
+        if (s1.top() == '<' && s1.top() != '>' && str[i] != '<' && str[i] != '>' && str[i] != '/') {
+            v1.push_back(str[i]);
+        }
+        if (s1.top() == '/' && str[i] != '>') {
+            v2.push_back(str[i]);
+        }
+        if (str[i] == '>' && s1.top() != '/') {
+            s1.pop();
+            s1.push(str[i]);
+        }
+        if (str[i] == '>' && s1.top() == '/') {
+            s1.pop();
+            s1.pop();
+        }
+        if (str[i] == '/' && s2.top() == '<') {
+            assert(s2.size() >= 2 && "it can't clsoe tag come before open tag </><>");
+            s1.push(str[i]);
+            s2.pop();
+            s2.pop();
+        }
+    }
+    s1.pop();
+
+    if (s1.empty() && s2.empty() && (v1.size() == v2.size())) {
+        return false;
+    }
+    else {
+        return true;
     }
 }
 
-//main
 int main() {
-    cout << Correction("sample.xml");
-   
+    string sum = ReadTXT("sample.xml");
+    cout << Detection(sum);
 }
