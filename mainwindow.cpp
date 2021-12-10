@@ -213,3 +213,20 @@ void MainWindow::on_pushButton_3_clicked()
 
 }
 
+void MainWindow::on_pushButton_4_clicked()
+{
+                /*          Minifying        */
+
+    if(StringOriginalData.size()==0){
+        QMessageBox::warning(this,"Warning" , "There Are No File Specified to Minifying ");
+
+    }
+    else{
+
+    string Minified_data = minifying(StringOriginalData);
+    QString text = QString::fromStdString(Minified_data);
+    ui->plainTextEdit->setPlainText(text);
+    }
+
+}
+
