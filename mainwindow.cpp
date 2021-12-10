@@ -230,3 +230,31 @@ void MainWindow::on_pushButton_4_clicked()
 
 }
 
+void MainWindow::on_pushButton_5_clicked()
+{
+
+                /*          Convert to JSON           */
+
+    unsigned int JSONsize;
+    vector<string> XML_JSONdata;
+
+
+    XMLTree tree(StringOriginalData);
+    JSONConverter json(tree);
+    string JSONdata = json.JSONString();
+
+    XML_Parser(JSONdata,XML_JSONdata,JSONsize);
+    Output_File(XML_JSONdata , JSONsize);
+    QFile x("JSONfile.json");
+    if(!x.open(QIODevice::ReadOnly | QFile::Text))
+    {
+        QMessageBox::warning(this,"Warning" , "Cannot Open File : " + x.errorString());
+    }
+    QTextStream inx(&x);
+    QString Formated = inx.readAll();
+
+    ui->plainTextEdit->setPlainText(Formated);
+    x.close();
+
+
+}
