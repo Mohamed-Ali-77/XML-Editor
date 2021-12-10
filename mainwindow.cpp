@@ -22,10 +22,16 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_actionopen_triggered()
 {
+        XML_ReadFile.clear();
+        Spaces.clear();
+    
         QString filter = "All Files (*.*) ;; XML Files (*.xml)";
         QString filename = QFileDialog::getOpenFileName(this,"Open File","C://",filter);
         QFile file(filename);
+    
+        sizeOriginal = file.size();
         currentFile = filename;
+    
         if(!file.open(QIODevice::ReadOnly | QFile::Text))
         {
             QMessageBox::warning(this,"Warning" , "Cannot Open File : " + file.errorString());
@@ -35,8 +41,10 @@ void MainWindow::on_actionopen_triggered()
         QString text = in.readAll();
 
         ui->plainTextEdit->setPlainText(text);
-        XML_Parser(text.toStdString(),XML_ReadFile,sizeOfXML);
-
+        StringOriginalData = text.toStdString();
+    
+        XML_Parser(StringOriginalData,XML_ReadFile,sizeOfXML);
+    
         file.close();
 }
 
