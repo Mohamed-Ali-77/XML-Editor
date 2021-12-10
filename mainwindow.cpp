@@ -122,7 +122,28 @@ void MainWindow::on_actionRedo_triggered()
 
 void MainWindow::on_pushButton_clicked()
 {
+                             /*         CHECK CORRECTNESS           */
 
+    unsigned int CorrectedSize;
+    XML_Corrected.clear();
+    Spaces.clear();
+    string CorrectedData = Correction(currentFile.toStdString());  //Function take filename
+    XML_Parser(CorrectedData,XML_Corrected ,CorrectedSize);
+    Spaces.resize(sizeOfXML*2);
+    XML_Formating(Spaces,XML_Corrected,XML_Corrected.size());
+
+    Output_File(Spaces, XML_Corrected, XML_Corrected.size(),"Fixed");
+    QFile x("Fixed.xml");
+
+    if(!x.open(QIODevice::ReadOnly | QFile::Text))
+    {
+        QMessageBox::warning(this,"Warning" , "Cannot Open File : " + x.errorString());
+    }
+    QTextStream inx(&x);
+    QString Corrected = inx.readAll();
+
+    ui->plainTextEdit->setPlainText(Corrected);
+    x.close();
 }
 
 
