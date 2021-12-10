@@ -1,7 +1,5 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include "xml_parser.h"
-#include "compression.h"
 #include "main.h"
 
 string fileInAstring = "";
