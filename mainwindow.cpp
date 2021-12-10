@@ -171,3 +171,45 @@ void MainWindow::on_pushButton_2_clicked()
 
 }
 
+void MainWindow::on_pushButton_3_clicked()
+{
+                            /*      Decompresion        */
+    unsigned int DecompressedSize;
+    XML_Decompressed.clear();
+    Spaces.clear();
+
+    if(Comprssed_data.size()==0){
+        QMessageBox::warning(this,"Warning" , "There Are No File Specified to DeCompress ");
+
+    }
+    else{
+
+    DeCompresseddata = decompression(Comprssed_data);
+
+    Spaces.resize(sizeOfXML*2);
+    XML_Parser(DeCompresseddata,XML_Decompressed ,DecompressedSize);
+    XML_Formating(Spaces,XML_Decompressed,XML_Decompressed.size());   //Formating after decompress data
+
+
+    Output_File(Spaces, XML_Decompressed, XML_Decompressed.size(),"Decompress");
+    QFile x("Decompress.xml");
+    int sizeDecompreesed = x.size();
+    if(!x.open(QIODevice::ReadOnly | QFile::Text))
+    {
+        QMessageBox::warning(this,"Warning" , "Cannot Open File : " + x.errorString());
+    }
+    QTextStream inx(&x);
+    QString Formated = inx.readAll();
+
+    ui->plainTextEdit->setPlainText(Formated);
+    x.close();
+    QString type = "Byte pair decoding";
+    QMessageBox::information(this,  "DeCompression Info" ,"Original File Size: "+QString::number(sizeOriginal)+" Byte\n"+
+                                    "DeCompressed File Size: "+QString::number(sizeDecompreesed)+" Byte\n"+
+                                    "DeCompression Technique: "+type);
+
+
+    }
+
+}
+
