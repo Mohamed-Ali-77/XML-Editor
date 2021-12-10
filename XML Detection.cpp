@@ -7,6 +7,7 @@
 #include <fstream>
 
 using namespace std;
+
 string ReadTXT(string F_NAME) {
     fstream file(F_NAME.c_str());   // sample.xml
     string s = "";
@@ -17,12 +18,18 @@ string ReadTXT(string F_NAME) {
             // using printf() in all tests for consistency
             s = line.c_str();
             sum += s;
-
-            return s;
         }
         file.close();
     }
+    return sum;
 }
+
+string removeSpaces(string str)
+{
+    str.erase(remove(str.begin(), str.end(), ' '), str.end());
+    return str;
+}
+
 bool Detection(string str) {
     stack<char> s1;
     stack<char> s2;
@@ -49,9 +56,9 @@ bool Detection(string str) {
             s1.pop();
             s1.push(str[i]);
         }
-        if (str[i] == '>'&& s1.top() == '/') {   
+        if (str[i] == '>' && s1.top() == '/') {
             s1.pop();
-            s1.pop(); 
+            s1.pop();
         }
         if (str[i] == '/' && s2.top() == '<') {
             assert(s2.size() >= 2 && "it can't clsoe tag come before open tag </><>");
@@ -61,11 +68,16 @@ bool Detection(string str) {
         }
     }
     s1.pop();
-    
+
     if (s1.empty() && s2.empty() && (v1.size() == v2.size())) {
-        return true;  
-    }
-    else {
         return false;
     }
+    else {
+        return true;
+    }
+}
+
+int main() {
+    string sum = ReadTXT("sample.xml");
+    cout << Detection(sum);
 }
