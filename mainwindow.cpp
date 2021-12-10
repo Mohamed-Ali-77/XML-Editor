@@ -258,3 +258,28 @@ void MainWindow::on_pushButton_5_clicked()
 
 
 }
+
+void MainWindow::on_pushButton_6_clicked()
+{
+
+                    /*     Formatting (Prettifying)        */
+
+            Spaces.clear();
+            Spaces.resize(sizeOfXML*2);      // Not working without resizing
+
+            XML_Formating(Spaces, XML_ReadFile , XML_ReadFile.size());
+
+            Output_File(Spaces, XML_ReadFile, XML_ReadFile.size(),"Format");
+            QFile x("Format.xml");
+            if(!x.open(QIODevice::ReadOnly | QFile::Text))
+            {
+                QMessageBox::warning(this,"Warning" , "Cannot Open File : " + x.errorString());
+            }
+            QTextStream inx(&x);
+            QString Formated = inx.readAll();
+
+            ui->plainTextEdit->setPlainText(Formated);
+            x.close();
+
+
+}
