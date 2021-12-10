@@ -8,6 +8,12 @@
 
 using namespace std;
 
+string removeSpaces(string str)
+{
+    str.erase(remove(str.begin(), str.end(), ' '), str.end());
+    return str;
+}
+
 string ReadTXT(string F_NAME) {
     fstream file(F_NAME.c_str());   // sample.xml
     string s = "";
@@ -22,12 +28,6 @@ string ReadTXT(string F_NAME) {
         file.close();
     }
     return sum;
-}
-
-string removeSpaces(string str)
-{
-    str.erase(remove(str.begin(), str.end(), ' '), str.end());
-    return str;
 }
 
 bool Detection(string str) {
