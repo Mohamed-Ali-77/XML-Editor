@@ -149,6 +149,25 @@ void MainWindow::on_pushButton_clicked()
 
 void MainWindow::on_pushButton_2_clicked()
 {
+                    /*          Compression         */
+
+    if(XML_ReadFile.size()==0){
+        QMessageBox::warning(this,"Warning" , "There Are No File Specified to Compress ");
+
+    }
+    else{
+
+    Comprssed_data = compression(StringOriginalData);
+    sizeCompressed = Comprssed_data.size();
+
+    QString text = QString::fromStdString(Comprssed_data);
+    ui->plainTextEdit->setPlainText(text);
+
+    QString type = "Byte pair encoding";
+    QMessageBox::information(this,  "Compression Info" ,"Original File Size: "+QString::number(sizeOriginal)+" Byte\n"+
+                                    "Compressed File Size: "+QString::number(sizeCompressed)+" Byte\n"+
+                                    "Compression Technique: "+type);
+    }
 
 }
 
