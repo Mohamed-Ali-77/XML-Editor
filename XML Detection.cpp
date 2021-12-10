@@ -22,7 +22,7 @@ string ReadTXT(string F_NAME) {
         string line;
         while (getline(file, line)) {
             // using printf() in all tests for consistency
-            s = line.c_str();
+            s = removeSpaces(line.c_str());
             sum += s;
         }
         file.close();
