@@ -51,6 +51,12 @@ void MainWindow::on_actionopen_triggered()
 
 void MainWindow::on_actionNew_triggered()
 {
+    XML_ReadFile.clear();
+    Spaces.clear();
+    Comprssed_data.clear();
+    DeCompresseddata.clear();
+    XML_Corrected.clear();
+    setWindowTitle("XML-Manager");
     currentFile.clear();
     ui->plainTextEdit->setPlainText(QString());
 }
