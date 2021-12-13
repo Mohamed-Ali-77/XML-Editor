@@ -286,11 +286,17 @@ void MainWindow::on_pushButton_7_clicked()
 {
                 /*          Detection          */
 
-    if(Detection(StringOriginalData) == true){
-        QMessageBox::warning(this,"Warning" ,"There are Syntax Error detected(Please Press Fix(Error) To Fix it. ");
+    if(StringOriginalData.size() == 0){
+        QMessageBox::information(this,"Information" ,"No File to Detect");      
     }
-   else{
+    else{
+
+        if(Detection(StringOriginalData) == true){
+        QMessageBox::warning(this,"Warning" ,"There are Syntax Error detected(Please Press Fix(Error) To Fix it. ");
+        }
+        else{
         QMessageBox::information(this,"Information" ,"XML File Choosen is Correct  ");
+        }
     }
 
 
