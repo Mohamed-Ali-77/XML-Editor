@@ -52,7 +52,7 @@ string byte_pair_encoding(string str, char code_char, string s) {
 			result.push_back(str.at(i));
 		}
 	}
-	if (str.at(str.size() - 2) != s.at(0) && str.at(str.size() - 1) != s.at(1)) {
+	if (str.at(str.size() - 2) != s.at(0) || str.at(str.size() - 1) != s.at(1)) {
 		result.push_back(str.at(str.size() - 1));
 	}
 	return char_to_str(result);
