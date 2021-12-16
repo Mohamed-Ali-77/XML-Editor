@@ -3,6 +3,7 @@
 #include "main.h"
 using namespace std;
 
+string ErrorLines;
 string StringOriginalData;
 string Comprssed_data="";
 string DeCompresseddata="";
