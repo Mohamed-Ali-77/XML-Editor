@@ -14,6 +14,7 @@
 
 
 /* GLOBAL VARIABLES */
+extern string ErrorLines;
 extern string StringOriginalData;
 extern string Comprssed_data;
 extern string DeCompresseddata;
