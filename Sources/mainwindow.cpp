@@ -291,8 +291,10 @@ void MainWindow::on_pushButton_7_clicked()
     }
     else{
 
-        if(Detection(StringOriginalData) == true){
-        QMessageBox::warning(this,"Warning" ,"There are Syntax Error detected(Please Press Fix(Error) To Fix it. ");
+        if(Detection(currentFile.toStdString()) == true){
+        QString Errors = QString::fromStdString(ErrorLines);
+        QMessageBox::warning(this,"Warning" ,"There are Errors Found , Please Press Fix(Error) To Fix it \n"
+                             "Errors Found at lines:  "+ Errors);
         }
         else{
         QMessageBox::information(this,"Information" ,"XML File Choosen is Correct  ");
