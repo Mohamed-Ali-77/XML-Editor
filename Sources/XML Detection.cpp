@@ -35,42 +35,42 @@ bool Detection(string F_NAME) {
             open2 = s.find("<", open1 + 1);
             int l = s.length();
 
-                if (open1 != -1 && close1 != -1 && open2 == -1 && close2 == -1)         // case open tag only in line
-                {
-                    if (s[open1 + 1] != '/') {
-                        if ((s.length()-1) > close1) {
-                            n.push(numberofline);
-                            stack2.push(s);
-                        }
-                        if ((s.length()-1) == close1) {
-                            str1.clear();
-                            while (open1 < close1 - 1) {
-                                str1 += s[open1 + 1];
-                                open1++;
-                            }
-                            stack1.push(str1);
-                        }
+            if (open1 != -1 && close1 != -1 && open2 == -1 && close2 == -1)         // case open tag only in line
+            {
+                if (s[open1 + 1] != '/') {
+                    if ((s.length() - 1) > close1) {
+                        n.push(numberofline);
+                        stack2.push(s);
                     }
-                    
-                    else {
-                        str2.clear();
-                        while (open1 < close1 - 2) {
-                            str2 += s[open1 + 2];
+                    if ((s.length() - 1) == close1) {
+                        str1.clear();
+                        while (open1 < close1 - 1) {
+                            str1 += s[open1 + 1];
                             open1++;
                         }
-                        if (str2 != stack1.top()) {
-                            stack2.push(stack1.top());
-                            stack1.pop();
-                            n.push(numberofline);
-                        }
-                        if (str2 == stack1.top()) {
-                            stack1.pop();
-                        }
+                        stack1.push(str1);
                     }
-
-
                 }
-            
+
+                else {
+                    str2.clear();
+                    while (open1 < close1 - 2) {
+                        str2 += s[open1 + 2];
+                        open1++;
+                    }
+                    if (str2 != stack1.top()) {
+                        stack2.push(stack1.top());
+                        stack1.pop();
+                        n.push(numberofline);
+                    }
+                    if (str2 == stack1.top()) {
+                        stack1.pop();
+                    }
+                }
+
+
+            }
+
             if (open1 == -1 && close1 == -1 && open2 == -1 && close2 == -1) {
                 if (s.length() == 0) {
                     n.push(numberofline);
@@ -91,13 +91,13 @@ bool Detection(string F_NAME) {
                     str2 += s[open2 + 2];
                     open2++;
                 }
-                if (str2 == stack1.top()) {
-                    stack1.pop();
-                }
                 if (str2 != stack1.top()) {
                     stack2.push(stack1.top());
                     stack1.pop();
                     n.push(numberofline);
+                }
+                if (str2 == stack1.top()) {
+                    stack1.pop();
                 }
             }
 
@@ -128,5 +128,5 @@ bool Detection(string F_NAME) {
 
 
 int main() {
-    cout << Detection("sample.xml");
+    cout << Detection("sample2.xml");
 }
