@@ -11,8 +11,7 @@
 using namespace std;
 
 
-string ReadTXT(string F_NAME);
-bool Detection(string str);
+bool Detection(string F_NAME);
 
 
 
