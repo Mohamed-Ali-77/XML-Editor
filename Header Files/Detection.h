@@ -4,8 +4,6 @@
 #include <string>
 #include <stack>
 #include <vector>
-#include <assert.h>
-#include <cassert>
 #include <fstream>
 
 using namespace std;
