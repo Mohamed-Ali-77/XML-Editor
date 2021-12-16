@@ -104,19 +104,19 @@ bool Detection(string F_NAME) {
             numberofline++;
         }
         if (!n.empty()) {
-            cout << "wrong lines" << endl;
+            ErrorLines =  "";
             while (!n.empty()) {
-                cout << n.top() << endl;
+                ErrorLines.append(to_string(n.top()));
+                ErrorLines.append(" and ");
                 n.pop();
             }
+             ErrorLines.resize(ErrorLines.size() - 4);
         }
 
         if (stack2.empty()) {
-            cout << "No errors" << endl;
             a = 0;           // no errors
         }
         else {
-            cout << "error exist" << endl;
             a = 1;           //error
         }
         file.close();
