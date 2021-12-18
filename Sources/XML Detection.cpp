@@ -104,7 +104,7 @@ bool Detection(string F_NAME) {
             numberofline++;
         }
         if (!n.empty()) {
-            ErrorLines =  "";
+            string ErrorLines =  "";
             while (!n.empty()) {
                 ErrorLines.append(to_string(n.top()));
                 ErrorLines.append(" and ");
