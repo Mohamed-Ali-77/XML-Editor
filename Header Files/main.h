@@ -34,7 +34,7 @@ extern vector<string> XML_EncodedPairs;
 extern vector<char> XML_CodingCharacters;
 extern vector<string> Spaces;
 
-void Output_File( const vector<string> &XML_string, int size);
+void Output_File(const string &JSON_string);
 void Output_File(const vector<string> &Spaces, const vector<string> &XML_string, int size, string caller);
 
 
