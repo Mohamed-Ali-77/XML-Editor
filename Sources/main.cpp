@@ -34,10 +34,8 @@ void Output_File( const vector<string> &XML_string, int size)	  // For JSON File
     newfile.open("JSONfile.json",ios::out);
     if(newfile.is_open())
     {
-        for (int i = 0; i < size; i++)
-        {
-            newfile << XML_string[i] << "\n";
-        }
+
+            newfile << JSON_string;
     }
 }
 
