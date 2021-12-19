@@ -13,7 +13,7 @@ XML_Parser::XML_Parser(string file_data, vector<string> &XML_Vector, unsigned in
         {
             string line="";
 
-            while( (file_data[file_data_index] == ' ') && (file_data[file_data_index] == '\n' ))
+            while( (file_data[file_data_index] == ' '))
             {
                 file_data_index++;
             }
