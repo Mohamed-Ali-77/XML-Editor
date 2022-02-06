@@ -52,7 +52,7 @@ string byte_pair_encoding(string str, char code_char, string s) {
 			result.push_back(str.at(i));
 		}
 	}
-	if (str.at(str.size() - 2) != s.at(0) && str.at(str.size() - 1) != s.at(1)) {
+	if (str.at(str.size() - 2) != s.at(0) || str.at(str.size() - 1) != s.at(1)) {
 		result.push_back(str.at(str.size() - 1));
 	}
 	return char_to_str(result);
@@ -150,8 +150,18 @@ string byte_pair_decoding(string str, char code_char, string s) {
 
 }
 string decompression(string s) {
-	for (int i = coded_pairs.size()-1 ; i >= 0; i--) {
-		s = byte_pair_decoding(s, codeing_chars[i], coded_pairs[i]);
-	}
-	return s;
+    for (int i = XML_EncodedPairs.size()-1 ; i >= 0; i--) {
+        s = byte_pair_decoding(s, XML_CodingCharacters[i], XML_EncodedPairs[i]);
+    }
+    vector<char> copy;
+    for (int i = 0; i < s.size()-1; i++) {
+        if (s.at(i) == '>' || (s.at(i + 1) == '<')) {
+            copy.push_back(s.at(i));
+            copy.push_back('\n');
+        }
+        else { copy.push_back(s.at(i)); }
+    }
+    copy.push_back(s.at(s.size()-1));
+
+    return char_to_str(copy);
 }

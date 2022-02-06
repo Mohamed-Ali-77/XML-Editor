@@ -1,0 +1,17 @@
+<RCC>
+    <qresource prefix="/Images">
+        <file>C:/Users/pc/Downloads/folder.png</file>
+        <file>C:/Users/pc/Downloads/xml-file-format-symbol.png</file>
+        <file>C:/Users/pc/Downloads/xml.png</file>
+        <file>C:/Users/pc/Downloads/check.png</file>
+        <file>C:/Users/pc/Downloads/file.png</file>
+        <file>C:/Users/pc/Downloads/paste.png</file>
+        <file>C:/Users/pc/Downloads/copy.png</file>
+        <file>C:/Users/pc/Downloads/new-document.png</file>
+        <file>C:/Users/pc/Downloads/add-file.png</file>
+        <file>C:/Users/pc/Downloads/close.png</file>
+        <file>C:/Users/pc/Downloads/diskette.png</file>
+        <file>C:/Users/pc/Downloads/undo.png</file>
+        <file>C:/Users/pc/Downloads/redo.png</file>
+    </qresource>
+</RCC>
