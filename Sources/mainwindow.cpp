@@ -296,3 +296,22 @@ void MainWindow::on_pushButton_7_clicked()
 
 
 }
+
+void MainWindow::on_pushButton_8_clicked()
+{
+            /*          Draw Grpah           */
+    XMLTree tree(StringOriginalData);
+    SocialGraph Graph(tree);
+    Graphfile(Graph);
+    system("dot -Tpng -O graph.dot");
+    QPixmap p("graph.dot.png");
+    ui->label->setPixmap(p);
+}
+
+
+void MainWindow::on_pushButton_9_clicked()
+{
+        /*          Delete Graph          */
+    ui->label->clear();
+}
+
