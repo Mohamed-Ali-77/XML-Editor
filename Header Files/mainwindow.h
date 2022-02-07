@@ -63,6 +63,11 @@ private slots:
     void on_pushButton_6_clicked();             /*Formatting (Prettifying)*/
 
     void on_pushButton_7_clicked();             /* Detect for errors*/
+    
+    void on_pushButton_8_clicked();             /* Draw Social Network*/
+
+    void on_pushButton_9_clicked();             /* Delete Graph */
+
 
 private:
     Ui::MainWindow *ui;
