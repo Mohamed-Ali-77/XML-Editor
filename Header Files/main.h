@@ -36,6 +36,6 @@ extern vector<string> Spaces;
 
 void Output_File(const string &JSON_string);
 void Output_File(const vector<string> &Spaces, const vector<string> &XML_string, int size, string caller);
-
+void Graphfile(SocialGraph& Graph);
 
 #endif /* MAIN_H_ */
